@@ -55,9 +55,10 @@ fun UiEdit(noteViewModel: NoteViewModel, navController: NavController) {
                     modifier = Modifier.weight(1f),
                     label = { Text(text = "Title", fontSize = 14.sp) },
                     singleLine = true,
-                    value = noteViewModel.checkNoteItem?.title?:"",
+                    value = noteViewModel.titleState,
                     onValueChange = { textTitle -> noteViewModel.titleState = textTitle })
                 IconButton(onClick = {
+noteViewModel.insertNote()
                     navController.popBackStack()
                 }) {
                     Icon(

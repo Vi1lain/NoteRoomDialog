@@ -54,7 +54,12 @@ fun UiNoteList(
                     UiCard(
                         navController = navController,
                         noteViewModel,
-                        noteItem
+                        noteItem,{ note ->
+                            noteViewModel.titleState = note.title
+                            noteViewModel.checkNoteItem = note
+                        },{note->
+                            noteViewModel.deleteNote(note)
+                        }
                     )
                 }
             })

@@ -24,23 +24,29 @@ import com.example.noteroomalertdialog.navigation.Routes
 
 
 @Composable
-fun UiCard(navController: NavController,
-           noteViewModel: NoteViewModel,
-           noteItem: NoteEntity) {
+fun UiCard(
+    navController: NavController,
+    noteViewModel: NoteViewModel,
+    noteItem: NoteEntity,
+    onClick: (NoteEntity) -> Unit,
+    deleteOnClick: (NoteEntity) -> Unit
+) {
     Card(modifier = Modifier
         .fillMaxWidth()
         .padding(
             start = 3.dp, top = 3.dp, end = 3.dp
         )
         .clickable {
+            onClick(noteItem)
             navController.navigate(route = Routes.NOTE_EDIT)
         }) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Checkbox(checked = noteItem.check, onCheckedChange = {check ->
-            noteViewModel.switchCheck(noteItem.copy(check=check))})
+            Checkbox(checked = noteItem.check, onCheckedChange = { check ->
+                noteViewModel.switchCheck(noteItem.copy(check = check))
+            })
             Text(
                 modifier = Modifier
                     .padding(top = 10.dp, start = 10.dp)
@@ -50,7 +56,7 @@ fun UiCard(navController: NavController,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
             )
-            IconButton(onClick = { noteViewModel.deleteNote(noteItem) }) {
+            IconButton(onClick = { deleteOnClick(noteItem) }) {
                 Icon(Icons.Default.Delete, contentDescription = "delete", tint = Color.Red)
             }
         }
